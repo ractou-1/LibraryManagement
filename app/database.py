@@ -21,8 +21,7 @@ def get_db():
         yield db 
     finally: 
         db.close() 
- 
- 
+
 if __name__ == "__main__": 
     with engine.connect() as connection: 
         result = connection.execute(text("SELECT 3")) 
