@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, text 
-from sqlalchemy.orm import sessionmaker 
+from sqlalchemy.orm import sessionmaker, declarative_base
  
 DATABASE_URL = "sqlite:///library.db" 
  
@@ -21,6 +21,8 @@ def get_db():
         yield db 
     finally: 
         db.close() 
+
+Base = declarative_base()
 
 if __name__ == "__main__": 
     with engine.connect() as connection: 
