@@ -19,6 +19,10 @@ class EmpruntRepository:
     def get_by_ouvrage(self, id_ouvrage: int):
         return self.db.query(Emprunt).filter(Emprunt.id_ouvrage == id_ouvrage).all()
 
+    def get_en_cours(self):
+    # Un emprunt est en cours tant que date_retour est vide
+        return self.db.query(Emprunt).filter(Emprunt.date_retour.is_(None)).all()
+
     def get_en_cours_by_ouvrage(self, id_ouvrage: int):
         return (
             self.db.query(Emprunt)
