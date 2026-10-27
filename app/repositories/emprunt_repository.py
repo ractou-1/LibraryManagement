@@ -19,6 +19,13 @@ class EmpruntRepository:
     def get_by_ouvrage(self, id_ouvrage: int):
         return self.db.query(Emprunt).filter(Emprunt.id_ouvrage == id_ouvrage).all()
 
+    def get_en_cours_by_ouvrage(self, id_ouvrage: int):
+        return (
+            self.db.query(Emprunt)
+            .filter(Emprunt.id_ouvrage == id_ouvrage, Emprunt.date_retour.is_(None))
+            .all()
+        )
+
     def create(self, emprunt: Emprunt):
         self.db.add(emprunt)
         self.db.commit()
