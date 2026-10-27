@@ -36,6 +36,11 @@ class EmpruntRepository:
         self.db.refresh(emprunt)
         return emprunt
 
+    def update(self, emprunt: Emprunt):
+        self.db.commit()
+        self.db.refresh(emprunt)
+        return emprunt
+
     def delete(self, emprunt: Emprunt):
         self.db.delete(emprunt)
         self.db.commit()

@@ -10,7 +10,7 @@ class AuteurRepository:
         return self.db.query(Auteur).all()
 
     def get_by_id(self, id_auteur: int):
-        return self.db.query(Auteur).filter(Auteur.id_auteur == id_auteur)
+        return self.db.query(Auteur).filter(Auteur.id_auteur == id_auteur).first()
     
     def create(self, auteur: Auteur):
         self.db.add(auteur)
