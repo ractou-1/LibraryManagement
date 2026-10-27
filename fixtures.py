@@ -69,7 +69,7 @@ def load_fixtures():
         db.add_all(adherents) 
         db.commit() 
  
-        print("Fixtures chargées avec succès.") 
+        print("Fixtures chargées : 5 auteurs, 10 ouvrages, 5 adhérents, 7 emprunts.") 
  
  
 if __name__ == "__main__": 
