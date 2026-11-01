@@ -27,9 +27,8 @@ def list_encours_loans(db: Session = Depends(get_db)):
 #Créer un emprunt
 @router.post("", status_code=201)
 def create_loan(loan: EmpruntCreate, db: Session = Depends(get_db)):
-    # Les dates sont déjà vérifiées par le schéma EmpruntCreate
 
-    # Règle métier : l'adhérent et l'ouvrage doivent exister
+    # l'adhérent et l'ouvrage doivent exister
     if AdherentRepository(db).get_by_id(loan.id_adherent) is None:
         raise HTTPException(status_code=404, detail="Adhérent introuvable")
     if OuvrageRepository(db).get_by_id(loan.id_ouvrage) is None:
@@ -37,7 +36,7 @@ def create_loan(loan: EmpruntCreate, db: Session = Depends(get_db)):
 
     repo = EmpruntRepository(db)
 
-    # Règle métier : l'ouvrage ne doit pas déjà être emprunté
+    # l'ouvrage ne doit pas être emprunté
     if len(repo.get_en_cours_by_ouvrage(loan.id_ouvrage)) > 0:
         raise HTTPException(status_code=409, detail="Cet ouvrage est déjà emprunté")
 
@@ -51,7 +50,7 @@ def create_loan(loan: EmpruntCreate, db: Session = Depends(get_db)):
     return repo.create(new_loan)
 
 
-# Enregistre le retour d'un ouvrage : la date de retour devient la date du jour
+# Enregistre le retour d'un ouvrage, la date de retour devient la date du jour
 @router.put("/{loan_id}/return")
 def return_loan(loan_id: int, db: Session = Depends(get_db)):
     repo = EmpruntRepository(db)
@@ -61,7 +60,7 @@ def return_loan(loan_id: int, db: Session = Depends(get_db)):
     if loan.date_retour is not None:
         raise HTTPException(status_code=409, detail="Cet emprunt est déjà rendu")
 
-    # Règle métier : le retour ne peut pas être avant le début de l'emprunt
+    #e retour ne peut pas être avant le début de l'emprunt
     if date.today() < loan.date_emprunt:
         raise HTTPException(
             status_code=400,

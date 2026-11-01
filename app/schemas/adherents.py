@@ -21,7 +21,7 @@ class AdherentCreate(BaseModel):
         value = value.strip() 
         if len(value) < 3: 
             raise ValueError( 
-            "Le nom doit contenir au moins 3 caractères." 
+            "Le prénom doit contenir au moins 3 caractères." 
             ) 
         return value 
 

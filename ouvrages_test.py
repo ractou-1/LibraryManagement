@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 
 from app.models import Auteur, Ouvrage
 
-# Même base que celle d'Alembic (lance le script depuis la racine du projet)
 engine = create_engine("sqlite:///library.db")
 db = sessionmaker(bind=engine)()
 

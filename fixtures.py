@@ -7,7 +7,7 @@ aujourdhui = date.today()
 
 def load_fixtures(): 
     with SessionLocal() as db: 
-        # Réinitialisation des données 
+        # réinitialisation des données 
         db.query(Adherent).delete() 
         db.query(Auteur).delete() 
         db.query(Ouvrage).delete()
@@ -41,7 +41,7 @@ def load_fixtures():
         Adherent(nom="Durand", prenom="Chloé", email="chloe.durand@mail.fr"),
         ]
 
-            # --- Emprunts : date_retour vide = emprunt en cours ---
+            #Pour Emprunt, date_retour vide <=> emprunt en cours
         def emprunt(adherent, ouvrage, il_y_a_jours, duree=21, rendu_apres=None):
             debut = aujourdhui - timedelta(days=il_y_a_jours)
             return Emprunt(
@@ -60,7 +60,7 @@ def load_fixtures():
             emprunt(adherents[2], ouvrages[6], 30, duree=14, rendu_apres=12),  # rendu
             emprunt(adherents[3], ouvrages[8], 15, duree=7, rendu_apres=9),    # rendu en retard (9 j > 7 j)
             emprunt(adherents[1], ouvrages[0], 60, duree=21, rendu_apres=18),  # rendu (même livre qu'Alice, plus ancien)
-            # Chloé n'a aucun emprunt : cas d'un adhérent sans activité
+            # Chloé n'a aucun emprunt 
         ]
  
         db.add_all(auteurs) 

@@ -8,7 +8,6 @@ class EmpruntCreate(BaseModel):
     date_emprunt: date
     date_retour: date = None
 
-    # Règle métier : le retour ne peut pas être avant le début de l'emprunt
     @model_validator(mode="after")
     def validate_dates(self):
         if self.date_retour is not None and self.date_retour < self.date_emprunt:
